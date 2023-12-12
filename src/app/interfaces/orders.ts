@@ -6,6 +6,7 @@ export interface Orders {
   status: string
   created_at: string
   updated_at: string
+  totalPrice: number
   OrderItem: OrderItem[]
 }
 
@@ -14,4 +15,15 @@ export interface OrderItem {
   orderId: number
   productId: number
   quantity: number
+  Product: Product
 }
+
+export interface Product {
+  id: number
+  name: string
+  price: number
+  created_at: string
+  updated_At: string
+}
+
+

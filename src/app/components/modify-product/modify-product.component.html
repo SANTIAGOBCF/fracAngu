@@ -1,1 +1,18 @@
-<p>modify-product works!</p>
+<div class="m-3">
+    <ng-container *ngIf="dataProductById$ | async as productById">   
+    <form #modifyProductForm="ngForm" (ngSubmit)="onModifyProduct(modifyProductForm)">
+        <p *ngIf="modifyProductForm.invalid" class="error-message">
+            Please fill in all required fields
+        </p> 
+        <div class="mb-3">
+        <label for="exampleInputName" class="form-label">Name</label>
+        <input type="text" ngModel={{productById.name}} required  class="form-control" name="name" id="name" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+        <label for="exampleInputPrice" class="form-label">Price</label>
+        <input type="number" ngModel={{productById.price}} required  min="1" name="price" class="form-control" id="price">
+        </div>
+        <button type="submit" class="btn btn-primary">Update product</button>
+    </form>
+    </ng-container>
+</div>

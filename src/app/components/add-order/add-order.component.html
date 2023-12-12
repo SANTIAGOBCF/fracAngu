@@ -1,0 +1,107 @@
+<form #addForm="ngForm" (ngSubmit)="onAddOrder(addForm)"   class="m-4">
+  <div class="mb-3">
+    <p *ngIf="addForm.invalid" class="error-message">
+      Please fill in all required fields.
+    </p>
+    <label for="inputName" class="form-label">Name</label>
+    <input
+      type="text"
+      class="form-control"
+      ngModel
+      id="inputName"
+      name="inputName"
+      aria-describedby="nameOrder"
+      required
+    />
+    <label for="status" class="form-label">Status</label>
+    <select class="form-select" [(ngModel)]="status"  id="status" name="status"  >
+      <option [selected]="true" value="Completed">Completed</option>
+      <option value="In progress">In progress</option>
+      <option value="Pending">Pending</option>             
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-secondary btn-sm"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      Add products
+    </button>
+  </div>
+
+  <button type="submit" [disabled]="addForm.invalid" class="btn btn-primary btn-lg">Submit</button>
+    
+  
+</form>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add products</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>It will only be added the elements you put a quantity</p>
+        <ng-container *ngIf="dataProduct$ | async as products">
+          <input
+            type="number"
+            class="mb-3"
+            min="1"
+            [(ngModel)]="inputNumber"
+            (input)="addElement()"
+          />
+          
+          <div>
+            @for(item of elements; track item) {
+            <div class="row mb-1">
+              <div class="col-md-6">
+                <select class="form-select" [(ngModel)]="addForm.value['select' + item]" id="select{{item}}" name="select{{item}}" required >
+                  @for (product of products; track product.id) {
+                  <option value="{{ product.id }}">{{ product.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Quantity {{ item }}"
+                  min="1"
+                  [(ngModel)]="addForm.value['input'+item]" 
+                  id="input{{item}}"
+                  name="input{{item}}"
+                  required
+                />
+              </div>
+            </div>
+            }
+          </div>
+        
+        </ng-container>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

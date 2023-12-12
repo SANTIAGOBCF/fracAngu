@@ -1,7 +1,9 @@
-<button type="button" class="btn btn-primary btn-lg m-3">Large button</button>
+
+<button type="button" class="btn btn-primary btn-lg m-3" routerLink="/addEditOrders">Add Order</button>
 
 
-<table class="table">
+
+<table class="table m-5">
     <thead>
       <tr>
         <th scope="col">#ID</th>
@@ -15,44 +17,30 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>
-            <button type="button" class="btn btn-primary btn-sm m-1">Small button</button>
-            <button type="button" class="btn btn-secondary btn-sm m-1">Small button</button>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>
-            <button type="button" class="btn btn-primary btn-sm m-1">Small button</button>
-            <button type="button" class="btn btn-secondary btn-sm m-1">Small button</button>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td >Larry the Bird</td>
-        <td>twitter</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>
-            <button type="button" class="btn btn-primary btn-sm m-1">Small button</button>
-            <button type="button" class="btn btn-secondary btn-sm m-1">Small button</button>
-        </td>
-      </tr>
+      <ng-container *ngIf="dataOrder$ | async as orders">
+        @for (order of orders; track order.id) {
+          <tr>
+            <th scope="row">{{ order.id}}</th>
+            <td>{{ order.name}}</td>
+            <td>{{ order.created_at | date  }}</td>
+            <td>{{ order.updated_at | date  }}</td>
+            <td>
+            @for (orderItem of order.OrderItem; track orderItem.id) {
+              <li>{{orderItem.Product.name}}</li>
+            }
+            </td>
+            <td>{{ order.totalPrice }}</td>
+            <td>{{ order.status}}</td>
+            <td>
+              @if(order.status != "Completed"){
+                <button type="button" class="btn btn-primary btn-sm m-1">Edit</button>
+                <button type="button" (click)="deleteOrder(order.id)" class="btn btn-secondary btn-sm m-1">Remove</button>
+              }@else{
+                <p>No options</p>
+              }
+            </td>
+          </tr>
+        }
+      </ng-container>
     </tbody>
   </table>
