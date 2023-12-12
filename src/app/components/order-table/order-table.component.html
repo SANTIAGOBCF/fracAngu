@@ -33,8 +33,10 @@
             <td>{{ order.status}}</td>
             <td>
               @if(order.status != "Completed"){
-                <button type="button" class="btn btn-primary btn-sm m-1">Edit</button>
-                <button type="button" (click)="deleteOrder(order.id)" class="btn btn-secondary btn-sm m-1">Remove</button>
+                <button type="button" class="btn btn-warning">
+                  Edit
+                </button>
+                <button type="button" (click)="deleteOrder(order.id)" class="btn btn-danger btn-sm m-1">Remove</button>
               }@else{
                 <p>No options</p>
               }

@@ -4,11 +4,12 @@ import { OrdersService } from '../../services/orders.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ModifyOrderComponent } from '../modify-order/modify-order.component';
 
 @Component({
   selector: 'app-order-table',
   standalone: true,
-  imports: [CommonModule,AsyncPipe,DatePipe,RouterModule],
+  imports: [CommonModule,AsyncPipe,DatePipe,RouterModule,ModifyOrderComponent],
   templateUrl: './order-table.component.html',
   styleUrl: './order-table.component.css'
 })
