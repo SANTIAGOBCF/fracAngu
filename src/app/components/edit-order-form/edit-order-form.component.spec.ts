@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddEditOrdersComponent } from './add-edit-orders.component';
+import { EditOrderFormComponent } from './edit-order-form.component';
 
-describe('AddEditOrdersComponent', () => {
-  let component: AddEditOrdersComponent;
-  let fixture: ComponentFixture<AddEditOrdersComponent>;
+describe('EditOrderFormComponent', () => {
+  let component: EditOrderFormComponent;
+  let fixture: ComponentFixture<EditOrderFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddEditOrdersComponent]
+      imports: [EditOrderFormComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AddEditOrdersComponent);
+    fixture = TestBed.createComponent(EditOrderFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

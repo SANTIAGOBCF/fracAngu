@@ -9,13 +9,13 @@ import { addOrder } from '../../classes/addOrder';
 import { OrdersService } from '../../services/orders.service';
 
 @Component({
-  selector: 'app-add-order',
+  selector: 'app-add-order-form',
   standalone: true,
   imports: [CommonModule,FormsModule,AsyncPipe],
-  templateUrl: './add-order.component.html',
-  styleUrl: './add-order.component.css'
+  templateUrl: './add-order-form.component.html',
+  styleUrl: './add-order-form.component.css'
 })
-export class AddOrderComponent {
+export class AddOrderFormComponent {
 
   dataProduct$!: Observable<Product[]>;
   inputNumber: number=1;

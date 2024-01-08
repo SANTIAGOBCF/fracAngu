@@ -4,11 +4,11 @@
             Please fill in all required fields, if you  to add a product.
         </p> 
         <div class="mb-3">
-        <label for="exampleInputName" class="form-label">Name</label>
+        <label for="name" class="form-label">Name</label>
         <input type="text" required ngModel class="form-control" name="name" id="name" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
-        <label for="exampleInputPrice" class="form-label">Price</label>
+        <label for="price" class="form-label">Price</label>
         <input type="number" required ngModel min="1" name="price" class="form-control" id="price">
         </div>
         <button type="submit" [disabled]="addProductForm.invalid" class="btn btn-primary">Add product</button>

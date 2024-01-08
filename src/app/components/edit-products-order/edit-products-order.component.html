@@ -1,0 +1,141 @@
+<h5>Product's Order:</h5>
+
+<table class="table m-3">
+  <thead>
+    <tr>
+      <th scope="col">#Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (orderItem of dataProduct.OrderItem; track orderItem.id) {
+
+    <tr>
+      <th scope="row">{{ orderItem.Product.id }}</th>
+      <td>{{ orderItem.Product.name }}</td>
+      <td>{{ orderItem.Product.price }}</td>
+      <td>
+        <input type="number" [min]="1" [(ngModel)]="orderItem.quantity" />
+        <div class="error-message" *ngIf="orderItem.quantity < 1">
+          Input cannot be less than 1
+        </div>
+      </td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-warning"
+          [disabled]="orderItem.quantity < 1 || isButtonClicked"
+          (click)="
+            updateQuantity(orderItem.quantity, orderItem.Product.id);
+            isButtonClicked = true
+          "
+        >
+          Edit Quantity
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm m-1"
+          [disabled]="isButtonClicked"
+          (click)="
+            deleteProductFromOrder(orderItem.Product.id); isButtonClicked = true
+          "
+        >
+          Remove from Order
+        </button>
+      </td>
+    </tr>
+
+    }
+  </tbody>
+</table>
+
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-secondary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+>
+  New product
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Add products to order
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form #addProductForm="ngForm" (ngSubmit)="onAddProduct(addProductForm)">
+        <ng-container *ngIf="dataProduct$ | async as productsToAdd">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="nameNewProductOrder" class="form-label"
+                >Product</label
+              >
+              <select
+                class="form-select"
+                id="nameNewProductOrder"
+                aria-label="Default select example"
+                required
+                ngModel
+                name="nameNewProductOrder"
+              >
+                @for (product of productsToAdd; track product.id) {
+                <option value={{product.id}}>{{ product.name }}</option>
+                }
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="quantityNewProductOrder" class="form-label"
+                >Quantity</label
+              >
+              <input
+                type="number"
+                min="1"
+                class="form-control"
+                id="quantityNewProductOrder"
+                required
+                ngModel
+                name="quantityNewProductOrder"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              [disabled]="addProductForm.invalid"
+              class="btn btn-primary"
+            >
+              Save changes
+            </button>
+          </div>
+        </ng-container>
+      </form>
+    </div>
+  </div>
+</div>

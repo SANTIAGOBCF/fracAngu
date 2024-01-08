@@ -1,5 +1,5 @@
 
-<button type="button" class="btn btn-primary btn-lg m-3" routerLink="/addEditOrders">Add Order</button>
+<button type="button" class="btn btn-primary btn-lg m-3" routerLink="/addOrders">Add Order</button>
 
 
 
@@ -26,14 +26,14 @@
             <td>{{ order.updated_at | date  }}</td>
             <td>
             @for (orderItem of order.OrderItem; track orderItem.id) {
-              <li>{{orderItem.Product.name}}</li>
+              <li>{{orderItem.Product.name}} ({{orderItem.quantity}})</li>
             }
             </td>
             <td>{{ order.totalPrice }}</td>
             <td>{{ order.status}}</td>
             <td>
               @if(order.status != "Completed"){
-                <button type="button" class="btn btn-warning">
+                <button type="button" routerLink="/editOrder/{{ order.id }}" class="btn btn-warning">
                   Edit
                 </button>
                 <button type="button" (click)="deleteOrder(order.id)" class="btn btn-danger btn-sm m-1">Remove</button>
